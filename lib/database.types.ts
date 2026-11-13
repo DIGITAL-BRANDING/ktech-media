@@ -89,7 +89,7 @@ export type Database = {
       admin_update_staff_profile: { Args: { target_id: string; new_display_name: string; new_role: NewsroomRole; new_is_active: boolean }; Returns: undefined };
       record_article_view: { Args: { p_article_id: string; p_viewer_key: string }; Returns: undefined };
       toggle_article_like: { Args: { p_article_id: string; p_viewer_key: string }; Returns: { liked: boolean; like_count: number }[] };
-      get_public_article_engagement: { Args: { p_article_id: string }; Returns: { views: number; likes: number; comments: number }[] };
+      get_public_article_engagement: { Args: { p_article_id: string; p_viewer_key: string }; Returns: { views: number; likes: number; comments: number; liked: boolean }[] };
       submit_article_comment: { Args: { p_article_id: string; p_viewer_key: string; p_commenter_name: string; p_comment_body: string }; Returns: string };
       admin_article_engagement: { Args: Record<PropertyKey, never>; Returns: { article_id: string; views: number; likes: number; pending_comments: number; approved_comments: number }[] };
     };

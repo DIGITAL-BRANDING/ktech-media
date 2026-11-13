@@ -12,6 +12,7 @@ const sections = [
       { href: "/admin", label: "Dashboard", icon: "bi-grid-1x2" },
       { href: "/admin/articles", label: "Labarai", icon: "bi-newspaper" },
       { href: "/admin/review", label: "Jerin tantancewa", icon: "bi-check2-square" },
+      { href: "/admin/comments", label: "Comments", icon: "bi-chat-dots" },
     ],
   },
   {
@@ -38,6 +39,7 @@ const routeNames: Array<[string, string]> = [
   ["/admin/photos/", "Preview na photo story"],
   ["/admin/videos/new", "Sabon bidiyo"],
   ["/admin/review", "Jerin tantancewa"],
+  ["/admin/comments", "Comments"],
   ["/admin/articles", "Labarai"],
   ["/admin/videos", "Bidiyo"],
   ["/admin/photos", "Photo stories"],

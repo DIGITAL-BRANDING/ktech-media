@@ -27,6 +27,15 @@ export default async function AdminPage() {
     supabase.from("profiles").select("id", { count: "exact", head: true }),
   ]);
   if (!profile?.is_active) redirect("/admin/login");
+  const { data: engagementRows } = profile.role === "reporter"
+    ? { data: [] as { views: number; likes: number; pending_comments: number; approved_comments: number }[] }
+    : await supabase.rpc("admin_article_engagement");
+  const engagement = (engagementRows || []).reduce((totals, row) => ({
+    views: totals.views + Number(row.views || 0),
+    likes: totals.likes + Number(row.likes || 0),
+    comments: totals.comments + Number(row.pending_comments || 0) + Number(row.approved_comments || 0),
+    pending: totals.pending + Number(row.pending_comments || 0),
+  }), { views: 0, likes: 0, comments: 0, pending: 0 });
 
   return <section className="section"><div className="admin-gate">
     <div className="admin-page-heading"><div><span className="eyebrow">NEWSROOM • {profile.role}</span><h1>Sannu, {profile.display_name}</h1><p>Ga taƙaitaccen halin wallafe-wallafenka da wuraren sarrafa kafar.</p></div><div className="admin-quick-actions"><Link href="/admin/articles/new" className="btn-waraka-primary"><i className="bi bi-plus-lg" aria-hidden="true" /> Rubuta labari</Link><form action={signOutNewsroom}><button className="btn-sm-admin" type="submit">Fita</button></form></div></div>
@@ -37,6 +46,7 @@ export default async function AdminPage() {
       <Link href="/admin/articles?status=published"><strong>{publishedCount ?? 0}</strong><span>Wallafe-wallafe</span><i className="bi bi-globe2" /></Link>
       <Link href="/admin/videos"><strong>{videoCount ?? 0}</strong><span>Bidiyo</span><i className="bi bi-camera-video" /></Link>
       <Link href="/admin/photos"><strong>{photoCount ?? 0}</strong><span>Photo stories</span><i className="bi bi-images" /></Link>
+      {profile.role !== "reporter" && <><Link href="/admin/articles"><strong>{engagement.views.toLocaleString()}</strong><span>Total article views</span><i className="bi bi-eye" /></Link><Link href="/admin/articles"><strong>{engagement.likes.toLocaleString()}</strong><span>Total likes</span><i className="bi bi-heart" /></Link><Link href="/admin/comments"><strong>{engagement.comments.toLocaleString()}</strong><span>Comments · {engagement.pending} pending</span><i className="bi bi-chat-dots" /></Link></>}
       {profile.role === "admin" && <Link href="/admin/staff"><strong>{staffCount ?? 0}</strong><span>Ma’aikata</span><i className="bi bi-people" /></Link>}
     </div>
     <div className="admin-dashboard-grid">

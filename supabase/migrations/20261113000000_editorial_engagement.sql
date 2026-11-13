@@ -38,7 +38,7 @@ create policy "article_likes_editor_read" on public.article_likes for select to 
   using ((select public.is_newsroom_editor()));
 create policy "article_comments_public_read_approved" on public.article_comments for select to anon, authenticated
   using (status = 'approved' and exists (
-    select 1 from public.articles a where a.id = article_id and a.status = 'published' and a.published_at <= now()
+    select 1 from public.articles a where a.id = public.article_comments.article_id and a.status = 'published' and a.published_at <= now()
   ));
 create policy "article_comments_editor_read_all" on public.article_comments for select to authenticated
   using ((select public.is_newsroom_editor()));
@@ -67,7 +67,7 @@ begin
   on conflict do nothing;
 
   if found then
-    update public.articles set view_count = view_count + 1 where id = target_article_id;
+    update public.articles set view_count = view_count + 1 where id = p_article_id;
   end if;
 end;
 $$;
@@ -101,16 +101,17 @@ begin
 end;
 $$;
 
-create or replace function public.get_public_article_engagement(p_article_id uuid)
-returns table (views bigint, likes bigint, comments bigint)
+create or replace function public.get_public_article_engagement(p_article_id uuid, p_viewer_key uuid)
+returns table (views bigint, likes bigint, comments bigint, liked boolean)
 language sql
 stable
 security definer
 set search_path = ''
 as $$
-  select a.view_count,
+  select a.view_count::bigint,
     (select count(*) from public.article_likes l where l.article_id = a.id),
-    (select count(*) from public.article_comments c where c.article_id = a.id and c.status = 'approved')
+    (select count(*) from public.article_comments c where c.article_id = a.id and c.status = 'approved'),
+    exists(select 1 from public.article_likes l where l.article_id = a.id and l.viewer_key = p_viewer_key)
   from public.articles a
   where a.id = p_article_id and a.status = 'published' and a.published_at <= now()
 $$;
@@ -156,7 +157,7 @@ as $$
 begin
   if not public.is_newsroom_editor() then raise exception 'Editor access required'; end if;
   return query
-    select a.id, a.view_count,
+    select a.id, a.view_count::bigint,
       (select count(*) from public.article_likes l where l.article_id = a.id),
       (select count(*) from public.article_comments c where c.article_id = a.id and c.status = 'pending'),
       (select count(*) from public.article_comments c where c.article_id = a.id and c.status = 'approved')
@@ -166,11 +167,11 @@ $$;
 
 revoke all on function public.record_article_view(uuid, uuid) from public;
 revoke all on function public.toggle_article_like(uuid, uuid) from public;
-revoke all on function public.get_public_article_engagement(uuid) from public;
+revoke all on function public.get_public_article_engagement(uuid, uuid) from public;
 revoke all on function public.submit_article_comment(uuid, uuid, text, text) from public;
 revoke all on function public.admin_article_engagement() from public;
 grant execute on function public.record_article_view(uuid, uuid) to anon, authenticated;
 grant execute on function public.toggle_article_like(uuid, uuid) to anon, authenticated;
-grant execute on function public.get_public_article_engagement(uuid) to anon, authenticated;
+grant execute on function public.get_public_article_engagement(uuid, uuid) to anon, authenticated;
 grant execute on function public.submit_article_comment(uuid, uuid, text, text) to anon, authenticated;
 grant execute on function public.admin_article_engagement() to authenticated;
