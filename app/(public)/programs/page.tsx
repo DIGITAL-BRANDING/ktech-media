@@ -1,0 +1,10 @@
+import Link from "next/link";
+import { PageIntro } from "@/components/page-intro";
+import { getPublicVideos } from "@/lib/content";
+
+export const metadata = { title: "Programs" };
+export const revalidate = 60;
+export default async function ProgramsPage() {
+  const videos = await getPublicVideos();
+  return <><PageIntro eyebrow="K-TECH MEDIA NETWORK / PROGRAMS" title="Programs & Shows" description="Shirye-shirye, tattaunawa da rahotannin bidiyo na K-TECH MEDIA NETWORK." action={{ href: "/videos", label: "Browse videos" }} /><section className="section"><div className="container"><div className="page-feature-grid"><article className="page-feature-card"><i className="bi bi-broadcast" /><h2>News & current affairs</h2><p>Sabbin bayanai da tattaunawa kan abubuwan da ke faruwa a Najeriya da duniya.</p></article><article className="page-feature-card"><i className="bi bi-mic" /><h2>Interviews</h2><p>Hirarraki da bayanai daga mutane masu ruwa da tsaki a al’umma.</p></article><article className="page-feature-card"><i className="bi bi-camera-reels" /><h2>Documentaries & features</h2><p>Rahotanni masu zurfi da labaran al’umma ta hanyar bidiyo.</p></article></div><div className="section-header page-section-heading"><h2 className="section-title">Latest programs and videos</h2><Link href="/videos" className="section-link">All videos <i className="bi bi-arrow-right" /></Link></div>{videos.length ? <div className="row g-4">{videos.slice(0, 6).map((video) => <div className="col-md-6 col-lg-4" key={video.id}><Link href={`/videos#${video.slug}`} className="page-video-card"><i className="bi bi-play-circle" /><span><strong>{video.title}</strong><small>{video.description || video.category?.name || "K-TECH MEDIA NETWORK"}</small></span></Link></div>)}</div> : <div className="page-empty-state"><i className="bi bi-camera-reels" /><h2>New programs are coming</h2><p>Da zarar an wallafa shirye-shiryen bidiyo, za su bayyana a wannan shafi.</p><Link href="/videos" className="section-link">Visit video library <i className="bi bi-arrow-right" /></Link></div>}</div></section></>;
+}

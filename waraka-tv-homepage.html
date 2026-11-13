@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WARAKA TV – Nigeria's Premier Television & Online Media Platform</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="WARAKA TV – Watch live TV, breaking news, trending videos, and exclusive programs from Nigeria's most trusted media platform." />
+  <meta name="keywords" content="WARAKA TV, Nigerian TV, live streaming, Nigerian news, Nollywood, Africa television" />
+  <meta name="author" content="WARAKA TV" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://warakatv.ng/" />
+  <meta property="og:title" content="WARAKA TV – Nigeria's Premier Television & Online Media" />
+  <meta property="og:description" content="Watch live TV, breaking news, trending videos, and exclusive programs." />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://warakatv.ng/" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    /* =============================================
+       CSS VARIABLES & RESET
+    ============================================= */
+    :root {
+      --red:       #E8001D;
+      --red-dark:  #B5001A;
+      --gold:      #C9961A;
+      --black:     #0A0A0A;
+      --dark:      #111111;
+      --card-bg:   #181818;
+      --border:    #2A2A2A;
+      --text:      #E8E8E8;
+      --muted:     #888888;
+      --white:     #FFFFFF;
+      --radius:    6px;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* =============================================
+       SCROLLBAR
+    ============================================= */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* =============================================
+       TYPOGRAPHY UTILITIES
+    ============================================= */
+    .font-display { font-family: 'Playfair Display', serif; }
+    .font-bebas   { font-family: 'Bebas Neue', cursive; }
+    .text-red     { color: var(--red); }
+    .text-gold    { color: var(--gold); }
+    .text-muted-custom { color: var(--muted); }
+
+    /* =============================================
+       TOP BAR
+    ============================================= */
+    .top-bar {
+      background: var(--red);
+      padding: 6px 0;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .ticker-wrapper {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-content {
+      display: inline-block;
+      animation: ticker 40s linear infinite;
+    }
+
+    .ticker-content:hover { animation-play-state: paused; }
+
+    @keyframes ticker {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(-100%); }
+    }
+
+    .ticker-item { margin-right: 60px; }
+    .ticker-item::before { content: "●"; margin-right: 8px; opacity: 0.7; }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .navbar-waraka {
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .navbar-brand-custom {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+    }
+
+    .logo-badge {
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.6rem;
+      padding: 4px 14px;
+      letter-spacing: 2px;
+      clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%);
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .nav-link-custom {
+      color: var(--text) !important;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 22px 14px !important;
+      position: relative;
+      transition: color var(--transition);
+    }
+
+    .nav-link-custom::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 14px; right: 14px;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+
+    .nav-link-custom:hover { color: var(--red) !important; }
+    .nav-link-custom:hover::after,
+    .nav-link-custom.active::after { transform: scaleX(1); }
+    .nav-link-custom.active { color: var(--red) !important; }
+
+    .nav-live-btn {
+      background: var(--red);
+      color: var(--white) !important;
+      padding: 8px 18px !important;
+      border-radius: 4px;
+      font-weight: 600;
+      animation: pulse-red 2s infinite;
+      margin: auto 0;
+    }
+
+    .nav-live-btn::after { display: none; }
+
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,0,29,0.5); }
+      50%       { box-shadow: 0 0 0 8px rgba(232,0,29,0); }
+    }
+
+    .nav-live-btn .live-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #fff;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    /* Dropdown */
+    .dropdown-menu-dark-custom {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-width: 200px;
+      padding: 8px 0;
+      margin-top: 0 !important;
+    }
+
+    .dropdown-item-custom {
+      color: var(--text);
+      padding: 8px 18px;
+      font-size: 0.82rem;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .dropdown-item-custom:hover {
+      background: var(--border);
+      color: var(--red);
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?w=1600&q=80') center/cover no-repeat;
+      filter: brightness(0.35);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover .hero-bg { transform: scale(1.03); }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.98) 0%,
+        rgba(0,0,0,0.6) 50%,
+        rgba(0,0,0,0.1) 100%
+      );
+    }
+
+    .hero-content { position: relative; z-index: 2; padding: 60px 0; }
+
+    .hero-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+    .hero-desc {
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+
+    .btn-waraka-primary {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 13px 28px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-waraka-primary:hover {
+      background: var(--red-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-waraka-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 13px 28px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-waraka-outline:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border-color: var(--white);
+    }
+
+    /* Hero Side Cards */
+    .hero-side {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 40px 0;
+    }
+
+    .hero-side-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .hero-side-card:hover {
+      background: rgba(232,0,29,0.15);
+      border-color: rgba(232,0,29,0.4);
+      transform: translateX(-4px);
+    }
+
+    .hero-side-card img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .hero-side-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--white);
+    }
+
+    .hero-side-card-meta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+
+    /* =============================================
+       SECTION UTILITIES
+    ============================================= */
+    .section { padding: 70px 0; }
+    .section-sm { padding: 40px 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--white);
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 4px; bottom: 4px;
+      width: 4px;
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    .section-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap var(--transition);
+    }
+
+    .section-link:hover { color: var(--red); gap: 8px; }
+
+    /* =============================================
+       CATEGORY PILLS
+    ============================================= */
+    .category-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+
+    .category-pill {
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      transition: all var(--transition);
+    }
+
+    .category-pill:hover,
+    .category-pill.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    /* =============================================
+       NEWS CARDS
+    ============================================= */
+    .news-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition);
+      height: 100%;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .news-card-img {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .news-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .news-card:hover .news-card-img img { transform: scale(1.06); }
+
+    .news-card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .news-card-body { padding: 18px; }
+
+    .news-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--white);
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-card-title:hover { color: var(--red); }
+
+    .news-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .news-card-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* Featured/Large card */
+    .news-card-featured {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 100%;
+      min-height: 380px;
+      cursor: pointer;
+    }
+
+    .news-card-featured img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .news-card-featured:hover img { transform: scale(1.04); }
+
+    .news-card-featured-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    }
+
+    .news-card-featured-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px;
+    }
+
+    /* List news items */
+    .news-list-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: opacity var(--transition);
+    }
+
+    .news-list-item:last-child { border-bottom: none; }
+    .news-list-item:hover { opacity: 0.8; }
+
+    .news-list-item img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .news-list-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-list-title:hover { color: var(--red); }
+
+    .news-list-meta { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
+    /* =============================================
+       VIDEO CARDS
+    ============================================= */
+    .video-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .video-card:hover .video-thumb img { transform: scale(1.06); }
+
+    .video-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      transition: background var(--transition);
+    }
+
+    .video-card:hover .video-play-btn { background: rgba(232,0,29,0.5); }
+
+    .video-play-icon {
+      width: 52px; height: 52px;
+      background: rgba(232,0,29,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      transition: transform var(--transition);
+      box-shadow: 0 4px 20px rgba(232,0,29,0.5);
+    }
+
+    .video-card:hover .video-play-icon { transform: scale(1.1); }
+
+    .video-duration {
+      position: absolute;
+      bottom: 8px; right: 8px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+
+    .video-body { padding: 14px; }
+
+    .video-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .video-meta { font-size: 0.72rem; color: var(--muted); display: flex; gap: 10px; }
+
+    /* =============================================
+       PROGRAMS / SHOWS SECTION
+    ============================================= */
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .program-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .program-img {
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .program-card:hover .program-img img { transform: scale(1.06); }
+
+    .program-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+
+    .program-time {
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .program-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    /* =============================================
+       LIVE TV SECTION
+    ============================================= */
+    .live-section {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .live-player-wrapper {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--red);
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .live-player-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--red);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 5px 12px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      margin-bottom: 8px;
+    }
+
+    .schedule-item:hover { border-color: var(--red); background: rgba(232,0,29,0.05); }
+
+    .schedule-item.now-playing { border-color: var(--red); background: rgba(232,0,29,0.1); }
+
+    .schedule-time {
+      min-width: 80px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red);
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 0.05em;
+    }
+
+    .schedule-title { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .schedule-cat { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+    /* =============================================
+       STATS BANNER
+    ============================================= */
+    .stats-banner {
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      padding: 50px 0;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3.5rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* =============================================
+       CTA SECTION
+    ============================================= */
+    .cta-section {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .cta-card:hover {
+      border-color: var(--red);
+      transform: translateY(-4px);
+    }
+
+    .cta-icon {
+      width: 60px; height: 60px;
+      background: rgba(232,0,29,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--red);
+      margin: 0 auto 16px;
+    }
+
+    .cta-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 10px; }
+    .cta-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+    /* =============================================
+       NEWSLETTER
+    ============================================= */
+    .newsletter-section {
+      background: var(--black);
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      max-width: 500px;
+      margin: 24px auto 0;
+      gap: 0;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      padding: 13px 18px;
+      font-size: 0.88rem;
+      border-radius: var(--radius) 0 0 var(--radius);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .newsletter-input:focus { border-color: var(--red); }
+    .newsletter-input::placeholder { color: var(--muted); }
+
+    .newsletter-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 13px 22px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+
+    .newsletter-btn:hover { background: var(--red-dark); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 60px 0 0;
+    }
+
+    .footer-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+
+    .social-links { display: flex; gap: 10px; margin-top: 20px; }
+
+    .social-link {
+      width: 36px; height: 36px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
+    .social-link:hover {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+
+    .footer-heading {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 30px; height: 2px;
+      background: var(--red);
+    }
+
+    .footer-links { list-style: none; }
+
+    .footer-links li { margin-bottom: 10px; }
+
+    .footer-links a {
+      font-size: 0.83rem;
+      color: var(--muted);
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover { color: var(--red); }
+    .footer-links a::before { content: '›'; color: var(--red); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .footer-contact-item i { color: var(--red); margin-top: 2px; flex-shrink: 0; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* =============================================
+       VIDEO MODAL
+    ============================================= */
+    .video-modal .modal-content {
+      background: #000;
+      border: 1px solid var(--border);
+    }
+
+    .video-modal .modal-header {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+    }
+
+    .video-modal .btn-close { filter: invert(1); }
+
+    .video-modal iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+    }
+
+    /* =============================================
+       SCROLL TO TOP
+    ============================================= */
+    .scroll-top {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 44px; height: 44px;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 999;
+      box-shadow: 0 4px 16px rgba(232,0,29,0.4);
+    }
+
+    .scroll-top.visible { opacity: 1; pointer-events: all; }
+    .scroll-top:hover { transform: translateY(-3px); }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 992px) {
+      .hero { min-height: 60vh; }
+      .hero-side { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 50px 0; }
+      .hero { min-height: 50vh; }
+      .navbar-waraka .nav-live-btn { margin: 8px 0; }
+      .newsletter-input-group { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid var(--border); border-radius: var(--radius); }
+      .newsletter-btn { border-radius: var(--radius); }
+    }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+
+    /* Intersection observer fade-in */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ============================================
+     TOP BAR - BREAKING NEWS TICKER
+============================================= -->
+<div class="top-bar">
+  <div class="container-fluid px-3">
+    <div class="d-flex align-items-center gap-3">
+      <span class="fw-bold text-white text-nowrap" style="font-size:0.7rem;letter-spacing:0.1em;">⚡ BREAKING</span>
+      <div class="ticker-wrapper flex-grow-1">
+        <div class="ticker-content text-white">
+          <span class="ticker-item">Federal Government Announces New Economic Policy for 2025</span>
+          <span class="ticker-item">WARAKA TV Wins Best Digital Media Award at the Nigeria Media Awards</span>
+          <span class="ticker-item">Oil Prices Rise as OPEC+ Meeting Concludes in Vienna</span>
+          <span class="ticker-item">Super Eagles Begin World Cup Qualification Campaign Next Month</span>
+          <span class="ticker-item">New Hospitals to be Built Across Six Geo-political Zones, Says Health Minister</span>
+          <span class="ticker-item">WARAKA TV Evening News – Watch at 7 PM Tonight</span>
+        </div>
+      </div>
+      <span class="text-white text-nowrap" id="currentTime" style="font-size:0.72rem;font-weight:600;"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     NAVIGATION
+============================================= -->
+<nav class="navbar-waraka" aria-label="Main Navigation">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between w-100">
+
+      <!-- Logo -->
+      <a href="index.html" class="navbar-brand-custom" aria-label="WARAKA TV Home">
+        <div class="logo-badge">WARAKA<span style="color:rgba(255,255,255,0.6)">TV</span></div>
+        <div class="logo-text">
+          Nigeria's Premier<br>Television & Media
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="d-none d-lg-flex align-items-center gap-1" id="desktopNav">
+        <a href="index.html" class="nav-link-custom active">Home</a>
+
+        <!-- News Dropdown -->
+        <div class="position-relative" id="newsDropdown">
+          <a href="news.html" class="nav-link-custom d-flex align-items-center gap-1">
+            News <i class="bi bi-chevron-down" style="font-size:0.65rem;"></i>
+          </a>
+          <div class="dropdown-menu-dark-custom position-absolute start-0" id="newsMenu" style="display:none;top:100%;">
+            <a href="news.php?cat=politics" class="dropdown-item-custom d-block">Politics</a>
+            <a href="news.php?cat=business" class="dropdown-item-custom d-block">Business</a>
+            <a href="news.php?cat=entertainment" class="dropdown-item-custom d-block">Entertainment</a>
+            <a href="news.php?cat=sports" class="dropdown-item-custom d-block">Sports</a>
+            <a href="news.php?cat=health" class="dropdown-item-custom d-block">Health</a>
+            <a href="news.php?cat=technology" class="dropdown-item-custom d-block">Technology</a>
+            <a href="news.php?cat=international" class="dropdown-item-custom d-block">International</a>
+          </div>
+        </div>
+
+        <a href="programs.html" class="nav-link-custom">Programs</a>
+        <a href="videos.html" class="nav-link-custom">Videos</a>
+        <a href="awards.html" class="nav-link-custom">Awards</a>
+        <a href="about.html" class="nav-link-custom">About</a>
+        <a href="advertise.html" class="nav-link-custom">Advertise</a>
+        <a href="contact.html" class="nav-link-custom">Contact</a>
+        <a href="live.html" class="nav-link-custom nav-live-btn ms-2">
+          <span class="live-dot"></span> Watch Live
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button class="d-lg-none btn" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false" style="color:var(--text);font-size:1.4rem;padding:8px;">
+        <i class="bi bi-list" id="mobileToggleIcon"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="d-lg-none" style="display:none !important; border-top:1px solid var(--border); padding:12px 0;">
+      <a href="index.html" class="d-block nav-link-custom">Home</a>
+      <a href="news.html" class="d-block nav-link-custom">News</a>
+      <a href="programs.html" class="d-block nav-link-custom">Programs</a>
+      <a href="videos.html" class="d-block nav-link-custom">Videos</a>
+      <a href="awards.html" class="d-block nav-link-custom">Awards</a>
+      <a href="about.html" class="d-block nav-link-custom">About</a>
+      <a href="advertise.html" class="d-block nav-link-custom">Advertise</a>
+      <a href="contact.html" class="d-block nav-link-custom">Contact</a>
+      <a href="live.html" class="d-block nav-link-custom nav-live-btn mt-2 text-center">
+        <span class="live-dot"></span> Watch Live
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+============================================= -->
+<section class="hero" aria-label="Featured Story">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+
+  <div class="container">
+    <div class="row align-items-end">
+
+      <!-- Main featured story -->
+      <div class="col-lg-8">
+        <div class="hero-content">
+          <div class="animate-in animate-delay-1">
+            <span class="hero-category"><i class="bi bi-lightning-fill"></i> Breaking News</span>
+          </div>
+          <h1 class="hero-title animate-in animate-delay-2">
+            Nigeria's Economy Hits Record Growth as Investment Surges Across Key Sectors
+          </h1>
+          <div class="hero-meta animate-in animate-delay-3">
+            <span><i class="bi bi-person"></i> By Chukwuemeka Obi</span>
+            <span><i class="bi bi-clock"></i> 2 hours ago</span>
+            <span><i class="bi bi-eye"></i> 12.4K views</span>
+          </div>
+          <p class="hero-desc animate-in animate-delay-3">
+            The National Bureau of Statistics has released a comprehensive report highlighting unprecedented growth across the agriculture, tech, and energy sectors, bringing new hope for Nigerians amid ongoing reforms.
+          </p>
+          <div class="d-flex gap-3 flex-wrap animate-in animate-delay-4">
+            <a href="news-detail.html" class="btn-waraka-primary">
+              <i class="bi bi-arrow-right-circle"></i> Read Full Story
+            </a>
+            <a href="live.html" class="btn-waraka-outline">
+              <i class="bi bi-broadcast"></i> Watch Live
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side recent stories -->
+      <div class="col-lg-4">
+        <div class="hero-side">
+          <p class="text-uppercase text-muted-custom" style="font-size:0.7rem;letter-spacing:0.12em;font-weight:700;margin-bottom:6px;">Latest Stories</p>
+
+          <a href="news-detail.html" class="hero-side-card">
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&q=70" alt="Aviation news" />
+            <div>
+              <div class="hero-side-card-title">Aviation Authority Approves New Routes Connecting Lagos to Eastern Cities</div>
+              <div class="hero-side-card-meta"><i class="bi bi-clock"></i> 45 mins ago</div>
+            </div>
+          </a>
+
+          <a href="news-detail.html" class="hero-side-card">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=200&q=70" alt="Sports news" />
+            <div>
+              <div class="hero-side-card-title">Super Eagles Coach Names Squad for Crucial World Cup Qualifier</div>
+              <div class="hero-side-card-meta"><i class="bi bi-clock"></i> 1 hr ago</div>
+            </div>
+          </a>
+
+          <a href="news-detail.html" class="hero-side-card">
+            <img src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?w=200&q=70" alt="Tech news" />
+            <div>
+              <div class="hero-side-card-title">Tech Startup Raises $15M to Expand Rural Internet Access</div>
+              <div class="hero-side-card-meta"><i class="bi bi-clock"></i> 3 hrs ago</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     LATEST NEWS SECTION
+============================================= -->
+<section class="section">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <h2 class="section-title">Latest News</h2>
+      <a href="news.html" class="section-link">All News <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-nav reveal">
+      <button class="category-pill active" onclick="filterNews(this, 'all')">All</button>
+      <button class="category-pill" onclick="filterNews(this, 'politics')">Politics</button>
+      <button class="category-pill" onclick="filterNews(this, 'business')">Business</button>
+      <button class="category-pill" onclick="filterNews(this, 'entertainment')">Entertainment</button>
+      <button class="category-pill" onclick="filterNews(this, 'sports')">Sports</button>
+      <button class="category-pill" onclick="filterNews(this, 'health')">Health</button>
+      <button class="category-pill" onclick="filterNews(this, 'tech')">Technology</button>
+    </div>
+
+    <div class="row g-4">
+      <!-- Featured Left -->
+      <div class="col-lg-6 reveal">
+        <a href="news-detail.html" class="news-card-featured d-block">
+          <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&q=80" alt="Senate Passes Landmark Bills" />
+          <div class="news-card-featured-overlay"></div>
+          <div class="news-card-featured-body">
+            <span class="hero-category">Politics</span>
+            <h3 class="font-display text-white" style="font-size:1.5rem;margin-top:10px;line-height:1.3;">
+              Senate Passes Landmark Budget Reform Bills After Historic Session
+            </h3>
+            <div class="news-card-meta mt-2" style="color:rgba(255,255,255,0.6);">
+              <span><i class="bi bi-person"></i> Amaka Nwosu</span>
+              <span><i class="bi bi-clock"></i> 4 hrs ago</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-lg-6">
+        <div class="row g-4">
+
+          <div class="col-sm-6 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=70" alt="Tech news" />
+                <span class="news-card-badge">Technology</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">Nigeria's Fintech Industry Records 200% Growth in Mobile Payments</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 5 hrs ago</span>
+                  <span><i class="bi bi-eye"></i> 3.2K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=70" alt="Sports news" />
+                <span class="news-card-badge">Sports</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">Nigerian Athlete Breaks 100m Record at African Athletics Championship</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 6 hrs ago</span>
+                  <span><i class="bi bi-eye"></i> 5.8K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&q=70" alt="Health news" />
+                <span class="news-card-badge">Health</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">Government Launches Free Medical Programme for Rural Communities</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 8 hrs ago</span>
+                  <span><i class="bi bi-eye"></i> 2.1K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&q=70" alt="Entertainment" />
+                <span class="news-card-badge">Entertainment</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">Afrobeats Star Wins Grammy; First Nigerian to Claim Three Awards</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 10 hrs ago</span>
+                  <span><i class="bi bi-eye"></i> 18.4K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- More News Row -->
+    <div class="row g-4 mt-2">
+      <div class="col-lg-8">
+        <div class="row g-4">
+          <div class="col-md-4 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1590004953392-5aba2e72269a?w=400&q=70" alt="Business" />
+                <span class="news-card-badge">Business</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">CBN Cuts Interest Rates to Boost Economic Recovery</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 12 hrs ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=400&q=70" alt="International" />
+                <span class="news-card-badge">International</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">AU Summit Concludes with New Trade Agreements Across 28 Nations</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 14 hrs ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 reveal">
+            <div class="news-card h-100">
+              <div class="news-card-img">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=70" alt="Education" />
+                <span class="news-card-badge">Education</span>
+              </div>
+              <div class="news-card-body">
+                <a href="news-detail.html">
+                  <h4 class="news-card-title">ASUU Suspension Lifts as FG Meets Key Demands for University Funding</h4>
+                </a>
+                <div class="news-card-meta">
+                  <span><i class="bi bi-clock"></i> 16 hrs ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Most Read Sidebar -->
+      <div class="col-lg-4">
+        <div class="reveal">
+          <h3 class="section-title mb-3" style="font-size:1.1rem;">Most Read Today</h3>
+          <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;">
+            <div class="news-list-item">
+              <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=100&q=70" alt="News" />
+              <div>
+                <a href="news-detail.html"><div class="news-list-title">Aviation Minister Unveils ₦500B Airport Upgrade Plan</div></a>
+                <div class="news-list-meta"><i class="bi bi-eye"></i> 24.1K views</div>
+              </div>
+            </div>
+            <div class="news-list-item">
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=100&q=70" alt="News" />
+              <div>
+                <a href="news-detail.html"><div class="news-list-title">Nigeria Hosts Inaugural West Africa Tech Summit in Abuja</div></a>
+                <div class="news-list-meta"><i class="bi bi-eye"></i> 18.7K views</div>
+              </div>
+            </div>
+            <div class="news-list-item">
+              <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=100&q=70" alt="News" />
+              <div>
+                <a href="news-detail.html"><div class="news-list-title">Davido Announces Massive World Tour Starting in Lagos</div></a>
+                <div class="news-list-meta"><i class="bi bi-eye"></i> 16.2K views</div>
+              </div>
+            </div>
+            <div class="news-list-item">
+              <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&q=70" alt="News" />
+              <div>
+                <a href="news-detail.html"><div class="news-list-title">CBN Introduces Digital Naira Wallet for All Bank Accounts</div></a>
+                <div class="news-list-meta"><i class="bi bi-eye"></i> 14.5K views</div>
+              </div>
+            </div>
+            <div class="news-list-item">
+              <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=100&q=70" alt="News" />
+              <div>
+                <a href="news-detail.html"><div class="news-list-title">Super Falcons Win WAFCON Title in Dominant Display</div></a>
+                <div class="news-list-meta"><i class="bi bi-eye"></i> 12.9K views</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     LIVE TV SECTION
+============================================= -->
+<section class="live-section section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+
+      <div class="col-lg-8">
+        <div class="section-header reveal">
+          <h2 class="section-title">Live Television</h2>
+          <a href="live.html" class="section-link">Full Screen <i class="bi bi-fullscreen"></i></a>
+        </div>
+        <div class="live-player-wrapper reveal" style="position:relative;">
+          <span class="live-badge">
+            <span class="live-dot"></span> ON AIR
+          </span>
+          <!-- Replace 'YOUR_YOUTUBE_LIVE_ID' with actual live stream ID -->
+          <iframe
+            src="https://www.youtube.com/embed/live_stream?channel=UCxxxxxxxxxxxxxx&autoplay=0"
+            title="WARAKA TV Live Stream"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width:100%;aspect-ratio:16/9;border:none;"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="reveal">
+          <h3 class="section-title mb-3" style="font-size:1.1rem;">Today's Schedule</h3>
+          <div class="schedule-item now-playing">
+            <div>
+              <div class="schedule-time">07:00 PM</div>
+              <div class="schedule-title">WARAKA Evening News</div>
+              <div class="schedule-cat">Live News Broadcast</div>
+            </div>
+            <span class="ms-auto badge" style="background:var(--red);font-size:0.65rem;">NOW</span>
+          </div>
+          <div class="schedule-item">
+            <div>
+              <div class="schedule-time">08:00 PM</div>
+              <div class="schedule-title">Focus Nigeria</div>
+              <div class="schedule-cat">Current Affairs Talk Show</div>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div>
+              <div class="schedule-time">09:00 PM</div>
+              <div class="schedule-title">The Business Hour</div>
+              <div class="schedule-cat">Finance & Economy</div>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div>
+              <div class="schedule-time">10:00 PM</div>
+              <div class="schedule-title">Sports Tonight</div>
+              <div class="schedule-cat">Sports Highlights</div>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <div>
+              <div class="schedule-time">11:00 PM</div>
+              <div class="schedule-title">Late Night Report</div>
+              <div class="schedule-cat">News Summary</div>
+            </div>
+          </div>
+          <a href="schedule.html" class="btn-waraka-primary w-100 justify-content-center mt-3">
+            <i class="bi bi-calendar3"></i> Full Weekly Schedule
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRENDING VIDEOS
+============================================= -->
+<section class="section" style="background:var(--dark);">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">Trending Videos</h2>
+      <a href="videos.html" class="section-link">View All <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-3 col-md-6 reveal">
+        <div class="video-card" onclick="openVideoModal('dQw4w9WgXcQ')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&q=70" alt="Video thumbnail" />
+            <div class="video-play-btn"><div class="video-play-icon"><i class="bi bi-play-fill"></i></div></div>
+            <span class="video-duration">12:34</span>
+          </div>
+          <div class="video-body">
+            <div class="video-title">Exclusive: Inside the New Federal Executive Council Meeting</div>
+            <div class="video-meta">
+              <span><i class="bi bi-eye"></i> 45K</span>
+              <span><i class="bi bi-clock"></i> 2 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 reveal">
+        <div class="video-card" onclick="openVideoModal('dQw4w9WgXcQ')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1574615858070-9f40d96e3c87?w=400&q=70" alt="Video thumbnail" />
+            <div class="video-play-btn"><div class="video-play-icon"><i class="bi bi-play-fill"></i></div></div>
+            <span class="video-duration">08:15</span>
+          </div>
+          <div class="video-body">
+            <div class="video-title">Interview: Governor Reveals 5-Year Development Blueprint</div>
+            <div class="video-meta">
+              <span><i class="bi bi-eye"></i> 32K</span>
+              <span><i class="bi bi-clock"></i> 3 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 reveal">
+        <div class="video-card" onclick="openVideoModal('dQw4w9WgXcQ')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&q=70" alt="Video thumbnail" />
+            <div class="video-play-btn"><div class="video-play-icon"><i class="bi bi-play-fill"></i></div></div>
+            <span class="video-duration">25:07</span>
+          </div>
+          <div class="video-body">
+            <div class="video-title">WARAKA Investigates: The State of Education in Northern Nigeria</div>
+            <div class="video-meta">
+              <span><i class="bi bi-eye"></i> 28K</span>
+              <span><i class="bi bi-clock"></i> 4 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 reveal">
+        <div class="video-card" onclick="openVideoModal('dQw4w9WgXcQ')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1484735347567-50fb0616c7db?w=400&q=70" alt="Video thumbnail" />
+            <div class="video-play-btn"><div class="video-play-icon"><i class="bi bi-play-fill"></i></div></div>
+            <span class="video-duration">06:42</span>
+          </div>
+          <div class="video-body">
+            <div class="video-title">Super Eagles Training Camp: Players Ready for the Big Match</div>
+            <div class="video-meta">
+              <span><i class="bi bi-eye"></i> 67K</span>
+              <span><i class="bi bi-clock"></i> 5 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROGRAMS / SHOWS
+============================================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">Our Programs</h2>
+      <a href="programs.html" class="section-link">All Shows <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=300&q=70" alt="Evening News" />
+            <div class="program-overlay">
+              <span class="program-time">Mon–Fri • 7PM</span>
+              <div class="program-title">Evening News</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=300&q=70" alt="Focus Nigeria" />
+            <div class="program-overlay">
+              <span class="program-time">Mon–Fri • 8PM</span>
+              <div class="program-title">Focus Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=300&q=70" alt="The Business Hour" />
+            <div class="program-overlay">
+              <span class="program-time">Daily • 9PM</span>
+              <div class="program-title">Business Hour</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&q=70" alt="Sports Tonight" />
+            <div class="program-overlay">
+              <span class="program-time">Mon–Sat • 10PM</span>
+              <div class="program-title">Sports Tonight</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=300&q=70" alt="Morning Show" />
+            <div class="program-overlay">
+              <span class="program-time">Mon–Fri • 7AM</span>
+              <div class="program-title">Sunrise Waraka</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2 reveal">
+        <div class="program-card">
+          <div class="program-img">
+            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=300&q=70" alt="Health" />
+            <div class="program-overlay">
+              <span class="program-time">Saturdays • 4PM</span>
+              <div class="program-title">Health Matters</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     STATS BANNER
+============================================= -->
+<div class="stats-banner reveal">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">15M+</div>
+          <div class="stat-label">Monthly Viewers</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Stories Published</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">36</div>
+          <div class="stat-label">States Covered</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Live Broadcasting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     CALL TO ACTION SECTION
+============================================= -->
+<section class="cta-section section">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-4 reveal">
+        <div class="cta-card">
+          <div class="cta-icon"><i class="bi bi-broadcast-pin"></i></div>
+          <div class="cta-title">Watch Live TV</div>
+          <div class="cta-desc">Stream WARAKA TV live 24/7 from anywhere in the world. Never miss breaking news or your favourite shows.</div>
+          <a href="live.html" class="btn-waraka-primary w-100 justify-content-center">
+            <i class="bi bi-play-circle"></i> Watch Now
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 reveal">
+        <div class="cta-card">
+          <div class="cta-icon"><i class="bi bi-camera-reels"></i></div>
+          <div class="cta-title">Submit Your Story</div>
+          <div class="cta-desc">Are you a citizen journalist? Submit your community news, photos, or tip-offs and get featured on WARAKA TV.</div>
+          <a href="submit-news.html" class="btn-waraka-primary w-100 justify-content-center">
+            <i class="bi bi-upload"></i> Submit Story
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 reveal">
+        <div class="cta-card">
+          <div class="cta-icon"><i class="bi bi-megaphone"></i></div>
+          <div class="cta-title">Advertise With Us</div>
+          <div class="cta-desc">Reach millions of engaged Nigerian viewers. Get your brand in front of our loyal audience across TV and digital platforms.</div>
+          <a href="advertise.html" class="btn-waraka-primary w-100 justify-content-center">
+            <i class="bi bi-bar-chart-line"></i> Get Started
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     NEWSLETTER SECTION
+============================================= -->
+<div class="newsletter-section">
+  <div class="container text-center reveal">
+    <h2 class="font-display text-white" style="font-size:1.8rem;">Stay Informed Every Day</h2>
+    <p class="text-muted-custom mt-2" style="max-width:480px;margin:0 auto;">
+      Subscribe to the WARAKA TV newsletter for daily news digest, exclusive content, and breaking alerts — delivered to your inbox.
+    </p>
+    <div class="newsletter-input-group">
+      <input type="email" class="newsletter-input" placeholder="Enter your email address" aria-label="Email for newsletter" />
+      <button class="newsletter-btn" onclick="subscribeNewsletter()">
+        <i class="bi bi-send-fill"></i> Subscribe
+      </button>
+    </div>
+    <p class="text-muted-custom mt-3" style="font-size:0.72rem;">
+      No spam. Unsubscribe at any time. We respect your privacy.
+    </p>
+  </div>
+</div>
+
+<!-- ============================================
+     FOOTER
+============================================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand -->
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center gap-10 mb-3" style="gap:10px;">
+          <div class="logo-badge" style="font-size:1.3rem;">WARAKA<span style="color:rgba(255,255,255,0.6)">TV</span></div>
+        </div>
+        <p class="footer-desc">
+          WARAKA TV is Nigeria's trusted source for breaking news, in-depth analysis, entertainment, and live television broadcasting across all 36 states and the diaspora.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-link" aria-label="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-link" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-link" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <a href="#" class="social-link" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="live.html">Live TV</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="awards.html">Awards</a></li>
+        </ul>
+      </div>
+
+      <!-- News Categories -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">News Topics</h4>
+        <ul class="footer-links">
+          <li><a href="news.php?cat=politics">Politics</a></li>
+          <li><a href="news.php?cat=business">Business</a></li>
+          <li><a href="news.php?cat=entertainment">Entertainment</a></li>
+          <li><a href="news.php?cat=sports">Sports</a></li>
+          <li><a href="news.php?cat=health">Health</a></li>
+          <li><a href="news.php?cat=technology">Technology</a></li>
+          <li><a href="news.php?cat=international">International</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-lg-4">
+        <h4 class="footer-heading">Get In Touch</h4>
+        <div class="footer-contact-item">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>Plot 14, Media Centre Road, Wuse Zone 2, Abuja, FCT, Nigeria</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-telephone-fill"></i>
+          <span>+234 803 000 0000</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-envelope-fill"></i>
+          <span>news@warakatv.ng</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-envelope-fill"></i>
+          <span>adverts@warakatv.ng</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="bi bi-clock-fill"></i>
+          <span>Newsroom open 24 hours, 7 days a week</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <span>© 2025 WARAKA TV. All Rights Reserved. | Registered with NBC Nigeria</span>
+      <div class="d-flex gap-3">
+        <a href="privacy.html" style="color:var(--muted);transition:color 0.3s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+        <a href="terms.html" style="color:var(--muted);transition:color 0.3s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--muted)'">Terms of Use</a>
+        <a href="sitemap.xml" style="color:var(--muted);transition:color 0.3s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--muted)'">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================
+     VIDEO MODAL
+============================================= -->
+<div class="modal fade video-modal" id="videoModal" tabindex="-1" aria-label="Video Player" aria-modal="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-white" style="font-family:'Playfair Display',serif;">Now Playing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0" id="videoModalBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+  <i class="bi bi-chevron-up"></i>
+</button>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  /* =============================================
+     CLOCK
+  ============================================= */
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const el = document.getElementById('currentTime');
+    if (el) el.textContent = time + ' WAT';
+  }
+  updateClock();
+  setInterval(updateClock, 60000);
+
+  /* =============================================
+     MOBILE NAVIGATION
+  ============================================= */
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  const toggleIcon   = document.getElementById('mobileToggleIcon');
+  let   menuOpen     = false;
+
+  mobileToggle.addEventListener('click', function() {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      mobileMenu.style.removeProperty('display');
+      mobileMenu.style.display = 'block';
+      toggleIcon.className = 'bi bi-x-lg';
+      mobileToggle.setAttribute('aria-expanded', 'true');
+    } else {
+      mobileMenu.style.display = 'none';
+      toggleIcon.className = 'bi bi-list';
+      mobileToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* =============================================
+     DESKTOP DROPDOWN (hover-friendly)
+  ============================================= */
+  const newsDropdown = document.getElementById('newsDropdown');
+  const newsMenu     = document.getElementById('newsMenu');
+
+  if (newsDropdown && newsMenu) {
+    newsDropdown.addEventListener('mouseenter', () => newsMenu.style.display = 'block');
+    newsDropdown.addEventListener('mouseleave', () => newsMenu.style.display = 'none');
+  }
+
+  /* =============================================
+     SCROLL TO TOP
+  ============================================= */
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* =============================================
+     INTERSECTION OBSERVER – REVEAL ANIMATIONS
+  ============================================= */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i % 4) * 0.1 + 's';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  /* =============================================
+     CATEGORY FILTER
+  ============================================= */
+  function filterNews(btn, category) {
+    document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    // In a real implementation, this would call an API or reload with ?cat=...
+    console.log('Filter by:', category);
+  }
+
+  /* =============================================
+     VIDEO MODAL
+  ============================================= */
+  function openVideoModal(videoId) {
+    const body = document.getElementById('videoModalBody');
+    body.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;"></iframe>`;
+    const modal = new bootstrap.Modal(document.getElementById('videoModal'));
+    modal.show();
+
+    // Stop video on modal close
+    document.getElementById('videoModal').addEventListener('hidden.bs.modal', () => {
+      body.innerHTML = '';
+    }, { once: true });
+  }
+
+  /* =============================================
+     NEWSLETTER SUBSCRIBE
+  ============================================= */
+  function subscribeNewsletter() {
+    const input = document.querySelector('.newsletter-input');
+    const email = input.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      input.style.borderColor = 'var(--red)';
+      input.placeholder = 'Please enter a valid email';
+      return;
+    }
+
+    // Normally you'd POST to subscribe.php
+    input.value = '';
+    input.placeholder = '✓ Subscribed! Thank you.';
+    input.style.borderColor = '#22c55e';
+    setTimeout(() => {
+      input.placeholder = 'Enter your email address';
+      input.style.borderColor = 'var(--border)';
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+import type { NewsArticle } from "@/lib/content";
+
+const demoText = "Wannan abun misali ne na yadda labari zai bayyana. Ainihin rubutu, hotuna da bayanan marubuci za su fito daga newsroom bayan an haɗa Supabase.";
+
+export const demoStories: NewsArticle[] = [
+  { id: "demo-1", title: "Misali: Babban labari zai bayyana a wannan fili", slug: "misali-babban-labari", excerpt: "Ana amfani da wannan rubutu domin nuna layout kafin a haɗa database.", body: demoText, featured_image_url: "/logo.png", image_caption: "Misalin hoto", status: "published", is_featured: true, is_breaking: false, published_at: "2026-11-12T10:00:00.000Z", created_at: "2026-11-12T10:00:00.000Z", category: { name: "Misali", slug: "sample" }, author: { display_name: "Newsroom" } },
+  { id: "demo-2", title: "Misali: Labari daga sashen newsroom", slug: "misali-sashen-newsroom", excerpt: demoText, body: demoText, featured_image_url: "/logo.png", image_caption: "Misalin labari", status: "published", is_featured: false, is_breaking: false, published_at: "2026-11-12T09:00:00.000Z", created_at: "2026-11-12T09:00:00.000Z", category: { name: "Misali", slug: "sample" }, author: { display_name: "Newsroom" } },
+  { id: "demo-3", title: "Misali: Rahoto da editoci suka tantance", slug: "misali-rahoton-edita", excerpt: demoText, body: demoText, featured_image_url: "/logo.png", image_caption: "Misalin labari", status: "published", is_featured: false, is_breaking: false, published_at: "2026-11-12T08:00:00.000Z", created_at: "2026-11-12T08:00:00.000Z", category: { name: "Misali", slug: "sample" }, author: { display_name: "Newsroom" } },
+  { id: "demo-4", title: "Misali: Labari mai ɗauke da hoto da bidiyo", slug: "misali-media", excerpt: demoText, body: demoText, featured_image_url: "/logo.png", image_caption: "Misalin media", status: "published", is_featured: false, is_breaking: false, published_at: "2026-11-12T07:00:00.000Z", created_at: "2026-11-12T07:00:00.000Z", category: { name: "Misali", slug: "sample" }, author: { display_name: "Newsroom" } },
+];

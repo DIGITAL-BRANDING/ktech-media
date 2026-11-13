@@ -1,0 +1,9 @@
+import Link from "next/link";
+import { PageIntro } from "@/components/page-intro";
+import { getPublicSiteSettings } from "@/lib/content";
+
+export const metadata = { title: "Contact" };
+export default async function ContactPage() {
+  const settings = await getPublicSiteSettings();
+  return <><PageIntro eyebrow="GET IN TOUCH" title="Contact K-TECH MEDIA NETWORK" description="Tuntuɓe newsroom kan labarai, gyara bayanai, haɗin gwiwa ko sauran tambayoyi." /><section className="section"><div className="container contact-grid"><div><h2>Newsroom contacts</h2><p>Don labari ko gyaran bayani, ka tuntuɓi ƙungiyar newsroom.</p>{settings.office_address && <p className="contact-detail"><i className="bi bi-geo-alt-fill" /><span>{settings.office_address}</span></p>}{settings.phone && <p className="contact-detail"><i className="bi bi-telephone-fill" /><a href={`tel:${settings.phone}`}>{settings.phone}</a></p>}{settings.contact_email && <p className="contact-detail"><i className="bi bi-envelope-fill" /><a href={`mailto:${settings.contact_email}`}>{settings.contact_email}</a></p>}{settings.advertising_email && <p className="contact-detail"><i className="bi bi-megaphone-fill" /><a href={`mailto:${settings.advertising_email}`}>{settings.advertising_email}</a></p>}{!settings.office_address && !settings.phone && !settings.contact_email && !settings.advertising_email && <div className="page-note"><i className="bi bi-info-circle" /><p>Ana shirin bayanan tuntuɓa. Za a saka official email da waya daga Site Settings idan an tanada su.</p></div>}</div><aside className="contact-card"><i className="bi bi-chat-square-text" /><h2>News tip or correction?</h2><p>A saka cikakken bayani da tushen labarin domin newsroom ta iya tantancewa.</p><Link href="/admin/login" className="section-link">Newsroom sign in <i className="bi bi-arrow-right" /></Link></aside></div></section></>;
+}

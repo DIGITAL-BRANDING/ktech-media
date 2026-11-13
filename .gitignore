@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Next.js
+/.next/
+/out/
+/build/
+
+# Supabase local state
+/supabase/.temp/
+
+# environment secrets
+.env
+.env.*
+!.env.example
+
+# tooling
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
