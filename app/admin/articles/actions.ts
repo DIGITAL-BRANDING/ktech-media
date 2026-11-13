@@ -4,11 +4,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { articleDocumentText, normalizeArticleDocument } from "@/lib/article-content";
 
 const articleSchema = z.object({
   title: z.string().trim().min(5).max(255),
   excerpt: z.string().trim().max(600).optional(),
-  body: z.string().trim().min(20),
+  body: z.string().trim().min(1),
+  sources: z.string().optional().default("[]"),
   categoryId: z.string().uuid().optional().or(z.literal("")),
   intent: z.enum(["draft", "in_review"]).default("draft"),
 });
@@ -28,10 +30,15 @@ export async function createArticle(formData: FormData): Promise<void> {
     title: formData.get("title"),
     excerpt: formData.get("excerpt") || "",
     body: formData.get("body"),
+    sources: formData.get("sources") || "[]",
     categoryId: formData.get("categoryId") || "",
     intent: formData.get("intent") || "draft",
   });
   if (!parsed.success) redirect("/admin/articles/new?error=check-fields");
+  let body;
+  try { body = normalizeArticleDocument(parsed.data.body, parsed.data.sources); }
+  catch { redirect("/admin/articles/new?error=check-fields"); }
+  if (articleDocumentText(body).trim().length < 20) redirect("/admin/articles/new?error=check-fields");
 
   const supabase = await createServerSupabaseClient();
   const { data: claims } = await supabase.auth.getClaims();
@@ -39,19 +46,15 @@ export async function createArticle(formData: FormData): Promise<void> {
   if (typeof userId !== "string") redirect("/admin/login");
 
   const slug = `${toSlug(parsed.data.title)}-${crypto.randomUUID().slice(0, 8)}`;
-  const paragraphs = parsed.data.body.split(/\n\s*\n/).map((text) => ({
-    type: "paragraph",
-    content: [{ type: "text", text }],
-  }));
   const { error } = await supabase.from("articles").insert({
     author_id: userId,
     category_id: parsed.data.categoryId || null,
     title: parsed.data.title,
     slug,
     excerpt: parsed.data.excerpt || null,
-    body: { type: "doc", content: paragraphs },
+    body,
     status: parsed.data.intent,
-    language_code: "ha",
+    language_code: "en",
   });
 
   if (error) {
