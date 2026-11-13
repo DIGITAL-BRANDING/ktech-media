@@ -13,8 +13,8 @@ create policy "site_settings_editor_update" on public.site_settings for all to a
   using ((select public.is_newsroom_editor())) with check ((select public.is_newsroom_editor()));
 create policy "site_settings_public_safe_values" on public.site_settings for select to anon, authenticated
   using (key in ('site_name', 'live_stream_url', 'ticker_text', 'office_address', 'phone', 'contact_email', 'advertising_email', 'facebook_url', 'x_url', 'youtube_url', 'instagram_url', 'whatsapp_url', 'telegram_url'));
-grant select on public.site_settings to anon;
 revoke all on public.site_settings from anon;
+grant select on public.site_settings to anon;
 grant select, insert, update, delete on public.site_settings to authenticated;
 
 insert into public.site_settings (key, value)

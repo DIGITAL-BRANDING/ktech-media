@@ -1510,4 +1510,31 @@
     .article-sources ol { display: grid; gap: 8px; margin: 0; padding-left: 1.4em; }
     .article-sources a { display: inline-flex; align-items: center; gap: 7px; }
     @media (max-width: 700px) { .source-add-form { grid-template-columns: 1fr; } }
+
+    /* Force the article canvas to follow the selected theme even when Bootstrap sets a white page background. */
+    :root[data-theme="dark"] article.article-page {
+      background: #0A0A0A !important;
+      color: #E8E8E8 !important;
+    }
+    :root[data-theme="dark"] article.article-page h1,
+    :root[data-theme="dark"] article.article-page .article-body h2,
+    :root[data-theme="dark"] article.article-page .article-body h3,
+    :root[data-theme="dark"] article.article-page .article-sources h2 { color: #FFFFFF !important; }
+    :root[data-theme="dark"] article.article-page .article-standfirst { color: #E0E3E8 !important; }
+    :root[data-theme="dark"] article.article-page .article-byline,
+    :root[data-theme="dark"] article.article-page .article-hero-image figcaption,
+    :root[data-theme="dark"] article.article-page .article-body { color: #E8E8E8 !important; }
+
+    :root[data-theme="light"] article.article-page {
+      background: #F4F5F7 !important;
+      color: #171A20 !important;
+    }
+    :root[data-theme="light"] article.article-page h1,
+    :root[data-theme="light"] article.article-page .article-body h2,
+    :root[data-theme="light"] article.article-page .article-body h3,
+    :root[data-theme="light"] article.article-page .article-sources h2 { color: #111318 !important; }
+    :root[data-theme="light"] article.article-page .article-standfirst,
+    :root[data-theme="light"] article.article-page .article-byline,
+    :root[data-theme="light"] article.article-page .article-hero-image figcaption,
+    :root[data-theme="light"] article.article-page .article-body { color: #24272D !important; }
     @media (max-width: 720px) { .engagement-columns { grid-template-columns: 1fr; gap: 30px; } }
