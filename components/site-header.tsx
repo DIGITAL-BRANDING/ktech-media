@@ -4,6 +4,7 @@ import { newsCategories, site } from "@/lib/site";
 import { getHomepageArticles, getPublicSiteSettings } from "@/lib/content";
 import { ThemeToggle } from "@/components/theme-provider";
 import { CurrentNavLink } from "@/components/current-nav-link";
+import { getCurrentLiveStream } from "@/lib/broadcast";
 
 const navigation = [
   { label: "Home", href: "/" },
@@ -16,7 +17,7 @@ const navigation = [
 ];
 
 export async function SiteHeader() {
-  const [articles, settings] = await Promise.all([getHomepageArticles(), getPublicSiteSettings()]);
+  const [articles, settings, liveStream] = await Promise.all([getHomepageArticles(), getPublicSiteSettings(), getCurrentLiveStream()]);
   const breaking = articles.filter((article) => article.is_breaking).slice(0, 4);
   const displayName = settings.site_name || site.name;
   return (
@@ -52,7 +53,7 @@ export async function SiteHeader() {
                 </div>
               </details>
               {navigation.slice(1).map((item) => <CurrentNavLink key={item.href} href={item.href} className="nav-link-custom">{item.label}</CurrentNavLink>)}
-              <CurrentNavLink href="/live" className="nav-link-custom nav-live-btn"><span className="live-dot" aria-hidden="true" /> Watch Live</CurrentNavLink>
+              <CurrentNavLink href="/live" className="nav-link-custom nav-live-btn">{liveStream?.status === "live" && <><span className="live-dot" aria-hidden="true" /> LIVE · </>}Watch Live</CurrentNavLink>
               <ThemeToggle compact />
             </nav>
             <details className="mobile-nav d-xl-none">
@@ -62,7 +63,7 @@ export async function SiteHeader() {
                 <Link href="/news">News</Link>
                 {newsCategories.map((category) => <Link key={category.slug} href={`/news?category=${category.slug}`}>{category.name}</Link>)}
                 {navigation.slice(1).map((item) => <CurrentNavLink key={item.href} href={item.href}>{item.label}</CurrentNavLink>)}
-                <Link href="/photos">Photos</Link><Link href="/live" className="mobile-live-link">Watch Live</Link>
+                <Link href="/photos">Photos</Link><Link href="/live" className="mobile-live-link">{liveStream?.status === "live" ? "● LIVE · Watch Live" : "Watch Live"}</Link>
                 <ThemeToggle />
               </nav>
             </details>

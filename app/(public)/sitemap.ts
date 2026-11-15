@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { getPublicArticleSlugs } from "@/lib/content";
+import { getPublicArticleSlugs, getPublicVideos } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const revalidate = 300;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await getPublicArticleSlugs();
+  const [articles, videos] = await Promise.all([getPublicArticleSlugs(), getPublicVideos()]);
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: site.url, changeFrequency: "hourly", priority: 1 },
     { url: `${site.url}/news`, changeFrequency: "hourly", priority: 0.9 },
@@ -28,5 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
+    ...videos.map((video) => ({ url: `${site.url}/videos/${video.slug}`, lastModified: video.published_at ? new Date(video.published_at) : undefined, changeFrequency: "weekly" as const, priority: 0.7 })),
   ];
 }

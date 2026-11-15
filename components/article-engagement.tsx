@@ -46,7 +46,6 @@ export function ArticleEngagement({ articleId }: { articleId: string }) {
       const viewerKey = getViewerKey();
       void supabase.rpc("record_article_view", { p_article_id: articleId, p_viewer_key: viewerKey })
         .then(() => { if (active) void refreshEngagement(); });
-      void refreshEngagement();
     } catch {
       // Storage can be unavailable in private browsing; public reading still works.
     }

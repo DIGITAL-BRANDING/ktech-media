@@ -3,11 +3,12 @@ import Image from "next/image";
 import { NewsCard } from "@/components/news-card";
 import { getHomepageArticles, getPublicSiteSettings, getPublicVideos } from "@/lib/content";
 import { newsCategories, site } from "@/lib/site";
+import { getCurrentLiveStream } from "@/lib/broadcast";
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [articles, videos, settings] = await Promise.all([getHomepageArticles(), getPublicVideos(), getPublicSiteSettings()]);
+  const [articles, videos, settings, liveStream] = await Promise.all([getHomepageArticles(), getPublicVideos(), getPublicSiteSettings(), getCurrentLiveStream()]);
   const [featured, ...sideStories] = articles;
   const mostRead = [...articles].sort((a, b) => (b.view_count ?? 0) - (a.view_count ?? 0)).slice(0, 5);
 
@@ -44,8 +45,8 @@ export default async function HomePage() {
         <div className="container">
           <SectionHeader title="Kalli kai tsaye" href="/live" linkLabel="Buɗe shafin live" />
           <div className="row g-4 align-items-center">
-            <div className="col-lg-8"><div className="live-player-wrapper">{settings.live_stream_url || site.liveStreamUrl ? <iframe src={settings.live_stream_url || site.liveStreamUrl!} title={`${settings.site_name || site.name} kai tsaye`} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen /> : <div className="stream-placeholder"><i className="bi bi-broadcast-pin" aria-hidden="true" /><h3>A nan za a nuna live stream</h3><p>Za a saita adireshin stream a saitunan admin.</p><Link href="/live" className="btn-waraka-primary">Shafin talabijin</Link></div>}<span className="live-badge"><span className="live-dot" /> LIVE</span></div></div>
-            <div className="col-lg-4"><div className="live-info"><span className="eyebrow">{settings.site_name || site.name}</span><h3>Labaran da ke gudana yanzu</h3><p>Rahotanni, hirarraki, da labaran kai tsaye daga newsroom ɗinmu.</p><Link href="/live" className="section-link">Duba jadawali <i className="bi bi-arrow-right" aria-hidden="true" /></Link></div></div>
+            <div className="col-lg-8"><div className="live-player-wrapper">{liveStream?.status === "live" ? <><LiveStreamEmbed embedUrl={liveStream.embed_url} hlsUrl={liveStream.hls_url} title={liveStream.title} /><span className="live-badge"><span className="live-dot" /> LIVE</span></> : <div className="stream-placeholder"><i className="bi bi-broadcast-pin" aria-hidden="true" /><h3>{liveStream?.title || "A nan za a nuna live stream"}</h3><p>{liveStream?.status === "scheduled" ? "Shiri na gaba zai fara a lokacin da aka tsara." : "Babu live broadcast a yanzu. Duba jadawalin shirin."}</p><Link href="/live" className="btn-waraka-primary">Duba shafin live</Link></div>}</div></div>
+            <div className="col-lg-4"><div className="live-info"><span className="eyebrow">{settings.site_name || site.name}</span><h3>{liveStream?.status === "live" ? "Live now" : "Next broadcast"}</h3><p>{liveStream?.title || "Rahotanni, hirarraki, da labaran kai tsaye daga newsroom ɗinmu."}</p><Link href="/live" className="section-link">Duba jadawali <i className="bi bi-arrow-right" aria-hidden="true" /></Link></div></div>
           </div>
         </div>
       </section>
@@ -58,6 +59,12 @@ export default async function HomePage() {
       <section className="section newsroom-cta"><div className="container"><div><span className="eyebrow">{settings.site_name || site.name}</span><h2>Sahihan labarai. Cikakken bayani.</h2><p>Bi sabbin labarai daga Najeriya da duniya a duk lokacin da suka faru.</p></div><Link href="/news" className="btn-waraka-primary">Bude dukkan labarai <i className="bi bi-arrow-right" /></Link></div></section>
     </>
   );
+}
+
+function LiveStreamEmbed({ embedUrl, hlsUrl, title }: { embedUrl: string | null; hlsUrl: string | null; title: string }) {
+  const url = embedUrl || hlsUrl;
+  if (!url) return null;
+  return embedUrl ? <iframe src={url} title={title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen /> : <video controls playsInline preload="none" aria-label={title}><source src={url} type="application/vnd.apple.mpegurl" /></video>;
 }
 
 function SectionHeader({ title, href, linkLabel }: { title: string; href: string; linkLabel: string }) {

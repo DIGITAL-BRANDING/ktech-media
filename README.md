@@ -24,9 +24,10 @@ Never place a Supabase secret/service-role key in a `NEXT_PUBLIC_` variable or b
 - `components/`: shared K-TECH MEDIA NETWORK header/footer, responsive navigation, theme control and editorial cards.
 - `public/k-tech-media-network.png`: primary website logo; `app/icon.png` supplies the browser icon.
 - `lib/supabase/`: server and browser Supabase clients; the server client uses cookie sessions.
-- `supabase/migrations/`: version-controlled PostgreSQL schema, publishing workflow, RLS and private draft/public published image storage policies.
-- `waraka-tv-complete/`: preserved PHP/MySQL source for reference during content and data migration.
-- Root `index.html`: preserved original layout reference; the Next.js application is served by the npm scripts.
+- `supabase/migrations/`: version-controlled PostgreSQL schema, publishing workflow, RLS, engagement, and broadcasting tables.
+- `/admin/broadcast`: manage the live channel, programme catalogue, and weekly schedule.
+- `/feed.xml` and `/news-sitemap.xml`: public RSS and Google News feeds.
+- Legacy PHP/MySQL and static HTML files have been removed from the application repository; a local archive is kept outside Git while the content migration is planned.
 - Without Supabase environment variables, the homepage and article route use clearly marked sample content so the design can be previewed without inventing real news.
 
 ## Editorial data model
@@ -53,5 +54,7 @@ The app deliberately offers no public sign-up or role promotion. Add later newsr
 
 ## Migration notes
 
-The legacy database is MySQL and its schema does not map one-to-one to the new PostgreSQL schema. A separate data migration should map users to Supabase Auth identities and profiles, migrate categories and story records, convert article bodies to the editor's JSON format, move image files to Storage, and preserve old slugs with redirects. The PHP files are kept intact while this migration is prepared.
+The legacy database was MySQL and its schema does not map one-to-one to the new PostgreSQL schema. The PHP source is archived outside this repository. Content import remains a separate task: map users to Supabase Auth identities and profiles, migrate categories and stories, convert article bodies to the editor's JSON format, move image files to Storage, and preserve old slugs with redirects before retiring the former site.
+
+The live channel uses an external provider playback URL. Railway serves the Next.js site; it does not ingest or transcode a broadcast stream. Apply all pending migrations with `npx supabase db push` after linking the intended Supabase project, then configure the stream from Admin → Live broadcast.
 # ktech-media

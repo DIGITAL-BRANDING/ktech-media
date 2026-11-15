@@ -12,11 +12,14 @@
     "start": "next start",
     "lint": "eslint app components lib proxy.ts next.config.ts eslint.config.mjs",
     "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
     "db:types": "supabase gen types typescript --local > lib/database.types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.0",
+    "bootstrap": "^5.3.9",
+    "bootstrap-icons": "^1.13.2",
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -24,6 +27,7 @@
     "zod": "^4.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

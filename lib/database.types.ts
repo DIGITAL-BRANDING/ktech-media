@@ -83,6 +83,36 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["article_comments"]["Insert"]>;
         Relationships: [Relationship<"article_comments_article_id_fkey", "article_id", "articles">, Relationship<"article_comments_moderated_by_fkey", "moderated_by", "profiles">];
       };
+      tags: {
+        Row: { id: string; name: string; slug: string; created_at: string };
+        Insert: { id?: string; name: string; slug: string; created_at?: string };
+        Update: Partial<Database["public"]["Tables"]["tags"]["Insert"]>;
+        Relationships: [];
+      };
+      article_tags: {
+        Row: { article_id: string; tag_id: string };
+        Insert: { article_id: string; tag_id: string };
+        Update: Partial<Database["public"]["Tables"]["article_tags"]["Insert"]>;
+        Relationships: [Relationship<"article_tags_article_id_fkey", "article_id", "articles">, Relationship<"article_tags_tag_id_fkey", "tag_id", "tags">];
+      };
+      programs: {
+        Row: { id: string; title: string; slug: string; host: string | null; description: string | null; poster_url: string | null; is_active: boolean; created_by: string | null; created_at: string; updated_at: string };
+        Insert: { id?: string; title: string; slug: string; host?: string | null; description?: string | null; poster_url?: string | null; is_active?: boolean; created_by?: string | null; created_at?: string; updated_at?: string };
+        Update: Partial<Database["public"]["Tables"]["programs"]["Insert"]>;
+        Relationships: [Relationship<"programs_created_by_fkey", "created_by", "profiles">];
+      };
+      program_schedule: {
+        Row: { id: string; program_id: string; day_of_week: number; starts_at: string; ends_at: string; timezone: string; is_active: boolean; created_at: string };
+        Insert: { id?: string; program_id: string; day_of_week: number; starts_at: string; ends_at: string; timezone?: string; is_active?: boolean; created_at?: string };
+        Update: Partial<Database["public"]["Tables"]["program_schedule"]["Insert"]>;
+        Relationships: [Relationship<"program_schedule_program_id_fkey", "program_id", "programs">];
+      };
+      live_streams: {
+        Row: { id: string; title: string; embed_url: string | null; hls_url: string | null; status: "live" | "offline" | "scheduled"; scheduled_at: string | null; program_id: string | null; created_by: string | null; created_at: string; updated_at: string };
+        Insert: { id?: string; title: string; embed_url?: string | null; hls_url?: string | null; status?: "live" | "offline" | "scheduled"; scheduled_at?: string | null; program_id?: string | null; created_by?: string | null; created_at?: string; updated_at?: string };
+        Update: Partial<Database["public"]["Tables"]["live_streams"]["Insert"]>;
+        Relationships: [Relationship<"live_streams_program_id_fkey", "program_id", "programs">, Relationship<"live_streams_created_by_fkey", "created_by", "profiles">];
+      };
     };
     Views: Record<string, never>;
     Functions: {

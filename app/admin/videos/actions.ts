@@ -10,6 +10,7 @@ const videoSchema = z.object({
   description: z.string().trim().max(1200).optional(),
   categoryId: z.string().uuid().optional().or(z.literal("")),
   sourceUrl: z.string().trim().url(),
+  thumbnailUrl: z.string().trim().optional().default(""),
 });
 
 function getApprovedVideoSource(rawUrl: string): { provider: "youtube" | "facebook" | "vimeo"; thumbnail: string | null } | null {
@@ -29,10 +30,15 @@ function slugify(value: string) {
 }
 
 export async function createVideo(formData: FormData) {
-  const parsed = videoSchema.safeParse({ title: formData.get("title"), description: formData.get("description") || "", categoryId: formData.get("categoryId") || "", sourceUrl: formData.get("sourceUrl") });
+  const parsed = videoSchema.safeParse({ title: formData.get("title"), description: formData.get("description") || "", categoryId: formData.get("categoryId") || "", sourceUrl: formData.get("sourceUrl"), thumbnailUrl: formData.get("thumbnailUrl") || "" });
   if (!parsed.success) redirect("/admin/videos/new?error=check-fields");
   const source = getApprovedVideoSource(parsed.data.sourceUrl);
   if (!source) redirect("/admin/videos/new?error=provider");
+  let manualThumbnail: string | null = null;
+  if (parsed.data.thumbnailUrl) {
+    try { const thumbnail = new URL(parsed.data.thumbnailUrl); if (thumbnail.protocol !== "https:") throw new Error("HTTPS required"); manualThumbnail = thumbnail.toString(); }
+    catch { redirect("/admin/videos/new?error=thumbnail"); }
+  }
 
   const supabase = await createServerSupabaseClient();
   const { data: claims } = await supabase.auth.getClaims();
@@ -46,7 +52,7 @@ export async function createVideo(formData: FormData) {
     description: parsed.data.description || null,
     provider: source.provider,
     source_url: parsed.data.sourceUrl,
-    thumbnail_url: source.thumbnail,
+    thumbnail_url: manualThumbnail || source.thumbnail,
     status: "in_review",
   });
   if (error) {

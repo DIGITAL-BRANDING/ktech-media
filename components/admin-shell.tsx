@@ -20,6 +20,7 @@ const sections = [
     links: [
       { href: "/admin/videos", label: "Bidiyo", icon: "bi-camera-video" },
       { href: "/admin/photos", label: "Photo stories", icon: "bi-images" },
+      { href: "/admin/broadcast", label: "Live broadcast", icon: "bi-broadcast" },
     ],
   },
   {
@@ -40,6 +41,7 @@ const routeNames: Array<[string, string]> = [
   ["/admin/videos/new", "Sabon bidiyo"],
   ["/admin/review", "Jerin tantancewa"],
   ["/admin/comments", "Comments"],
+  ["/admin/broadcast", "Live broadcast"],
   ["/admin/articles", "Labarai"],
   ["/admin/videos", "Bidiyo"],
   ["/admin/photos", "Photo stories"],

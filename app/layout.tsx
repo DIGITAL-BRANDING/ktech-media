@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.min.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
@@ -15,10 +17,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ha" data-theme="dark">
-      <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-      </head>
       <body><ThemeProvider>{children}</ThemeProvider></body>
     </html>
   );

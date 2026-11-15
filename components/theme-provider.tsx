@@ -1,30 +1,35 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
+const themeListeners = new Set<() => void>();
+const themeKey = "haske-media-theme";
+function getThemeSnapshot(): Theme { return localStorage.getItem(themeKey) === "light" ? "light" : "dark"; }
+function getServerThemeSnapshot(): Theme { return "dark"; }
+function subscribeToTheme(listener: () => void) {
+  themeListeners.add(listener);
+  const onStorage = (event: StorageEvent) => { if (event.key === themeKey) listener(); };
+  window.addEventListener("storage", onStorage);
+  return () => { themeListeners.delete(listener); window.removeEventListener("storage", onStorage); };
+}
 const ThemeContext = createContext<{ theme: Theme; toggleTheme: () => void }>({
   theme: "dark",
   toggleTheme: () => undefined,
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerThemeSnapshot);
 
   useEffect(() => {
-    const saved = localStorage.getItem("haske-media-theme");
-    const initial: Theme = saved === "light" ? "light" : "dark";
-    setTheme(initial);
-    document.documentElement.dataset.theme = initial;
-  }, []);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   function toggleTheme() {
-    setTheme((current) => {
-      const next = current === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem("haske-media-theme", next);
-      return next;
-    });
+    const next = theme === "dark" ? "light" : "dark";
+    localStorage.setItem(themeKey, next);
+    document.documentElement.dataset.theme = next;
+    themeListeners.forEach((listener) => listener());
   }
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
