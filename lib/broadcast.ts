@@ -3,6 +3,7 @@ import "server-only";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { site } from "@/lib/site";
+import type { Locale } from "@/lib/i18n";
 
 export type LiveStream = {
   id: string;
@@ -30,15 +31,16 @@ export type PublicProgram = {
   host: string | null;
   description: string | null;
   poster_url: string | null;
+  language_code: string;
   schedule: { day_of_week: number; starts_at: string; ends_at: string }[];
 };
 
-export async function getPublicPrograms(): Promise<PublicProgram[]> {
+export async function getPublicPrograms(locale: Locale = "en"): Promise<PublicProgram[]> {
   if (!isSupabaseConfigured()) return [];
   const supabase = await createServerSupabaseClient();
   const { data, error } = await supabase.from("programs")
-    .select("id,title,slug,host,description,poster_url,schedule:program_schedule(day_of_week,starts_at,ends_at)")
-    .eq("is_active", true).order("title").limit(100);
+    .select("id,title,slug,host,description,poster_url,language_code,schedule:program_schedule(day_of_week,starts_at,ends_at)")
+    .eq("is_active", true).eq("language_code", locale).order("title").limit(100);
   if (error) {
     console.error("Unable to load broadcast programmes:", error.message);
     return [];
@@ -68,12 +70,12 @@ export async function getCurrentLiveStream(): Promise<LiveStream | null> {
   return upcoming || (site.liveStreamUrl ? { id: "environment-stream", title: `${site.name} Live`, embed_url: site.liveStreamUrl, hls_url: null, status: "live", scheduled_at: null, program: null } : null);
 }
 
-export async function getProgramSchedule(): Promise<{ current: ScheduleEntry | null; next: ScheduleEntry | null; today: ScheduleEntry[] }> {
+export async function getProgramSchedule(locale: Locale = "en"): Promise<{ current: ScheduleEntry | null; next: ScheduleEntry | null; today: ScheduleEntry[] }> {
   if (!isSupabaseConfigured()) return { current: null, next: null, today: [] };
   const supabase = await createServerSupabaseClient();
   const { data, error } = await supabase.from("program_schedule")
-    .select("id,day_of_week,starts_at,ends_at,timezone,program:programs(title,host,slug)")
-    .eq("is_active", true).order("starts_at", { ascending: true }).limit(100);
+    .select("id,day_of_week,starts_at,ends_at,timezone,program:programs!inner(title,host,slug,language_code)")
+    .eq("is_active", true).eq("program.language_code", locale).order("starts_at", { ascending: true }).limit(100);
   if (error) {
     console.error("Unable to load program guide:", error.message);
     return { current: null, next: null, today: [] };

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { NewsCard } from "@/components/news-card";
 import { getPublicNewsPage } from "@/lib/content";
+import { getLocale } from "@/lib/i18n";
 
 export async function NewsArchive({ title, categorySlug, tagSlug, page = 1, search, basePath }: { title: string; categorySlug?: string; tagSlug?: string; page?: number; search?: string; basePath: string }) {
-  const result = await getPublicNewsPage({ page, search, categorySlug, tagSlug });
+  const locale = await getLocale();
+  const result = await getPublicNewsPage({ page, search, categorySlug, tagSlug, locale });
   const pages = Math.ceil(result.total / result.pageSize);
   const query = (targetPage: number) => {
     const params = new URLSearchParams();

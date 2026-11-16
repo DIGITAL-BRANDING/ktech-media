@@ -13,6 +13,7 @@ const articleSchema = z.object({
   sources: z.string().optional().default("[]"),
   categoryId: z.string().uuid().optional().or(z.literal("")),
   intent: z.enum(["draft", "in_review"]).default("draft"),
+  language: z.enum(["en", "ha"]).default("en"),
 });
 
 function toSlug(title: string) {
@@ -33,6 +34,7 @@ export async function createArticle(formData: FormData): Promise<void> {
     sources: formData.get("sources") || "[]",
     categoryId: formData.get("categoryId") || "",
     intent: formData.get("intent") || "draft",
+    language: formData.get("language") || "en",
   });
   if (!parsed.success) redirect("/admin/articles/new?error=check-fields");
   let body;
@@ -54,7 +56,7 @@ export async function createArticle(formData: FormData): Promise<void> {
     excerpt: parsed.data.excerpt || null,
     body,
     status: parsed.data.intent,
-    language_code: "en",
+    language_code: parsed.data.language,
   });
 
   if (error) {

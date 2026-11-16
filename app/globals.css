@@ -1600,3 +1600,59 @@
 .article-share span { color: var(--muted); }
 .article-share a { color: var(--foreground); border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.75rem; text-decoration: none; }
 .article-share a:hover, .article-share a:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+.language-switcher { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .75rem; }
+.language-switcher button { padding: 2px 4px; color: var(--text); background: transparent; border: 0; cursor: pointer; font-weight: 700; }
+.language-switcher button[aria-pressed="true"] { color: var(--red); }
+.language-switcher button:disabled { opacity: .55; cursor: wait; }
+.language-switcher-compact { margin-inline: 3px; }
+.footer-audience { display: grid; grid-template-columns: 1fr; margin: 36px 0; padding: 26px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.footer-audience h2 { margin: 0 0 7px; color: var(--white); font-size: 1.2rem; }
+.footer-audience p { color: var(--muted); margin: 0 0 16px; }
+.audience-optins { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; }
+.newsletter-form { display: grid; grid-template-columns: 1fr auto; gap: 9px; max-width: 620px; }
+.newsletter-form > input[type="email"] { min-width: 0; padding: 11px 14px; color: var(--text); background: var(--black); border: 1px solid var(--border); border-radius: 6px; }
+.newsletter-form > button { padding: 10px 18px; color: #fff; background: var(--red); border: 1px solid var(--red); border-radius: 6px; font-weight: 700; }
+.newsletter-form > small { grid-column: 1 / -1; color: var(--muted); }
+.newsletter-consent { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: .78rem; }
+.newsletter-consent input { margin-top: 3px; accent-color: var(--red); }
+.newsletter-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.push-subscribe { display: grid; justify-items: start; gap: 8px; }
+.push-subscribe small { color: var(--muted); }
+.audio-page { max-width: 1100px; }
+.audio-page > h1 { margin: 10px 0; color: var(--white); font: 900 clamp(2.3rem, 5vw, 4rem)/1.1 'Playfair Display', serif; }
+.audio-page > p { max-width: 760px; color: var(--muted); font-size: 1.08rem; line-height: 1.7; }
+.radio-on-air { display: grid; justify-items: start; gap: 16px; margin-top: 32px; padding: clamp(24px, 5vw, 48px); background: var(--card-bg); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: var(--radius); }
+.radio-on-air h2 { color: var(--white); font-size: 1.8rem; }
+.station-audio-player { display: block; width: 100%; max-width: 760px; }
+.podcast-show-card { display: block; height: 100%; overflow: hidden; color: var(--text); background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; }
+.podcast-show-card > img, .podcast-artwork-placeholder { display: grid; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; place-items: center; color: var(--red); background: #141414; font-size: 4rem; }
+.podcast-show-card > div { padding: 20px; }
+.podcast-show-card h2 { margin: 8px 0; color: var(--white); font: 800 1.45rem 'Playfair Display', serif; }
+.podcast-show-card p { color: var(--muted); }
+.podcast-show-hero { display: grid; grid-template-columns: minmax(160px, 280px) 1fr; align-items: center; gap: 30px; margin-bottom: 42px; }
+.podcast-show-hero > img { width: 100%; height: auto; border-radius: var(--radius); }
+.podcast-show-hero h1 { margin: 8px 0; color: var(--white); font: 900 clamp(2rem, 5vw, 3.5rem)/1.1 'Playfair Display', serif; }
+.podcast-show-hero p { color: var(--muted); line-height: 1.7; }
+.podcast-episode-list { display: grid; gap: 14px; }
+.podcast-episode { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 40%); align-items: center; gap: 20px; padding: 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.podcast-episode h3 { margin: 5px 0; color: var(--white); }
+.podcast-episode p { margin: 0; color: var(--muted); }
+.podcast-rss-link { display: inline-block; margin-top: 22px; color: var(--text); }
+.audio-admin-grid, .marketing-admin-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.audio-episode-fields, .ad-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.marketing-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+.marketing-metrics > div { display: grid; gap: 7px; padding: 18px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.marketing-metrics span { color: var(--muted); font-size: .8rem; }
+.marketing-metrics strong { color: var(--white); font-size: 1.7rem; }
+.ad-status-form { display: flex; gap: 8px; align-items: center; }
+.ad-status-form select { padding: 6px; color: var(--text); background: var(--black); border: 1px solid var(--border); border-radius: 5px; }
+.sponsored-placement { position: relative; overflow: hidden; margin-block: 22px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.sponsored-placement > a { display: grid; grid-template-columns: minmax(140px, 35%) 1fr; align-items: center; color: var(--text); text-decoration: none; }
+.sponsored-placement img { width: 100%; height: 150px; object-fit: cover; }
+.sponsored-copy { display: grid; gap: 5px; padding: 20px; }
+.sponsored-copy strong { color: var(--white); }
+.sponsored-copy small { color: var(--muted); }
+.sponsored-label { display: inline-flex; margin: 12px 0 0 15px; padding: 4px 8px; color: #fff; background: var(--red); border-radius: 4px; font-size: .68rem; font-weight: 800; text-transform: uppercase; }
+.article-category .sponsored-label { margin: 0 0 0 8px; vertical-align: middle; }
+@media (max-width: 767px) { .audience-optins, .audio-admin-grid, .marketing-admin-grid, .podcast-episode, .podcast-show-hero { grid-template-columns: 1fr; } .marketing-metrics { grid-template-columns: 1fr; } .audio-episode-fields, .ad-form-grid { grid-template-columns: 1fr; } .sponsored-placement > a { grid-template-columns: 1fr; } .sponsored-placement img { height: auto; aspect-ratio: 16 / 6; } }

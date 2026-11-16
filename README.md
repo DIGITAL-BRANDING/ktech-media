@@ -27,6 +27,9 @@ Never place a Supabase secret/service-role key in a `NEXT_PUBLIC_` variable or b
 - `supabase/migrations/`: version-controlled PostgreSQL schema, publishing workflow, RLS, engagement, and broadcasting tables.
 - `/admin/broadcast`: manage the live channel, programme catalogue, and weekly schedule.
 - `/feed.xml` and `/news-sitemap.xml`: public RSS and Google News feeds.
+- `/radio` and `/podcasts`: live audio station, podcast shows, episodes and RSS feeds; `/admin/audio` is the newsroom control panel.
+- `/admin/marketing`: newsletter campaign drafts, Web Push broadcasts and ad campaign inventory.
+- The site defaults to English and the EN/HA switcher selects only content authored in that language. It does not machine-translate stories.
 - Legacy PHP/MySQL and static HTML files have been removed from the application repository; a local archive is kept outside Git while the content migration is planned.
 - Without Supabase environment variables, the homepage and article route use clearly marked sample content so the design can be previewed without inventing real news.
 
@@ -57,4 +60,14 @@ The app deliberately offers no public sign-up or role promotion. Add later newsr
 The legacy database was MySQL and its schema does not map one-to-one to the new PostgreSQL schema. The PHP source is archived outside this repository. Content import remains a separate task: map users to Supabase Auth identities and profiles, migrate categories and stories, convert article bodies to the editor's JSON format, move image files to Storage, and preserve old slugs with redirects before retiring the former site.
 
 The live channel uses an external provider playback URL. Railway serves the Next.js site; it does not ingest or transcode a broadcast stream. Apply all pending migrations with `npx supabase db push` after linking the intended Supabase project, then configure the stream from Admin → Live broadcast.
+
+## Radio, newsletter, Web Push and advertising
+
+Apply the latest Supabase migration with `npx supabase db push` after verifying the linked project ref. For Railway, add these server variables in the project service Variables (keep the Supabase service-role key and VAPID private key server-only): `SUPABASE_SERVICE_ROLE_KEY`, `NEWSLETTER_TOKEN_SECRET` (32+ random characters), `RESEND_API_KEY`, `NEWSLETTER_FROM_EMAIL`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, and `VAPID_SUBJECT` (`mailto:news@k-tech.com.ng`). Generate VAPID values with `npx web-push generate-vapid-keys`; the public key may be `NEXT_PUBLIC_`, the private key must not be. Set `NEXT_PUBLIC_SITE_URL` to the production origin.
+
+Newsletter uses double opt-in and a Resend email integration. Verify the sender domain and Resend account before collecting real subscriptions. The subscriber table is not publicly readable; the server uses the service-role key for writes, and the SQL confirmation/unsubscribe functions accept only hashes of long random tokens. A basic per-process signup/push throttle is included; use a shared edge rate limiter (for example, Cloudflare) before a large public launch because Railway can run multiple instances.
+
+Web Push requires HTTPS and a browser that supports service workers. Visitors opt in explicitly; staff can send a short notification from Audience & Advertising. For radio, enter the HTTPS playback URL from your radio streaming provider in Admin → Radio & Podcasts. Podcast audio files should be hosted by an audio/CDN provider; the database stores playback URLs and metadata, not media binaries. Ad campaigns support homepage banners, article placements and podcast placements, with scheduling and sponsored story labels.
+
+For bilingual publishing, editors choose English or Hausa on each news, video, photo, show and episode record. Public pages filter to the selected language cookie. Existing Hausa records remain marked Hausa; translate/write the English version as a separate record where needed. The language switcher changes selection only and never translates article text automatically.
 # ktech-media

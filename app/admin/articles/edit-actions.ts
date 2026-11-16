@@ -6,7 +6,7 @@ import { z } from "zod";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { articleDocumentText, normalizeArticleDocument } from "@/lib/article-content";
 
-const schema = z.object({ id: z.string().uuid(), title: z.string().trim().min(5).max(255), excerpt: z.string().trim().max(600), body: z.string().trim().min(1), sources: z.string().optional().default("[]"), category_id: z.union([z.literal(""), z.string().uuid()]), status: z.enum(["draft", "in_review", "published", "archived"]), is_featured: z.enum(["true", "false"]).optional(), is_breaking: z.enum(["true", "false"]).optional() });
+const schema = z.object({ id: z.string().uuid(), title: z.string().trim().min(5).max(255), excerpt: z.string().trim().max(600), body: z.string().trim().min(1), sources: z.string().optional().default("[]"), category_id: z.union([z.literal(""), z.string().uuid()]), language_code: z.enum(["en", "ha"]).default("en"), status: z.enum(["draft", "in_review", "published", "archived"]), is_featured: z.enum(["true", "false"]).optional(), is_breaking: z.enum(["true", "false"]).optional() });
 export async function updateArticle(formData: FormData) {
   const parsed = schema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) redirect("/admin/articles?error=invalid");
@@ -25,6 +25,7 @@ export async function updateArticle(formData: FormData) {
     excerpt: values.excerpt || null,
     body,
     category_id: values.category_id || null,
+    language_code: values.language_code,
     status: values.status,
     published_at: values.status === "published" ? new Date().toISOString() : null,
     ...(profile?.role !== "reporter" ? { editor_id: userId, is_featured: values.is_featured === "true", is_breaking: values.is_breaking === "true" } : {}),

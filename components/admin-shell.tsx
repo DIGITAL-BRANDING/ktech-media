@@ -21,6 +21,7 @@ const sections = [
       { href: "/admin/videos", label: "Bidiyo", icon: "bi-camera-video" },
       { href: "/admin/photos", label: "Photo stories", icon: "bi-images" },
       { href: "/admin/broadcast", label: "Live broadcast", icon: "bi-broadcast" },
+      { href: "/admin/audio", label: "Radio & Podcasts", icon: "bi-soundwave" },
     ],
   },
   {
@@ -29,6 +30,7 @@ const sections = [
       { href: "/admin/categories", label: "Rukunin labarai", icon: "bi-tags" },
       { href: "/admin/staff", label: "Ma’aikata da izini", icon: "bi-people" },
       { href: "/admin/settings", label: "Saitunan site", icon: "bi-sliders" },
+      { href: "/admin/marketing", label: "Audience & Ads", icon: "bi-megaphone" },
     ],
   },
 ];
@@ -42,6 +44,8 @@ const routeNames: Array<[string, string]> = [
   ["/admin/review", "Jerin tantancewa"],
   ["/admin/comments", "Comments"],
   ["/admin/broadcast", "Live broadcast"],
+  ["/admin/audio", "Radio & Podcasts"],
+  ["/admin/marketing", "Audience & Advertising"],
   ["/admin/articles", "Labarai"],
   ["/admin/videos", "Bidiyo"],
   ["/admin/photos", "Photo stories"],
